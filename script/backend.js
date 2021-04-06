@@ -1,24 +1,21 @@
 let cards = [];
 let users = [];
 let card_sorting = [];
-let BASE_SERVER_URL = 'http://kevin-wissmer.developerakademie.com/backendtesting';
+let BASE_SERVER_URL = 'http://gruppe-66.developerakademie.com/script';
 
 
-function addUser() {
-    username_input = document.getElementById('username');
-    users.push(username_input.value);
+function addUserToServer(user) {
+    users.push(user);
     saveJSONToServer('users');
 }
 
-function addCard() {
-    card_input = document.getElementById('card');
-    cards.push(card_input.value);
+function addCardToServer(card) {
+    cards.push(card);
     saveJSONToServer('cards');
 }
 
-function addCardSorting() {
-    card_sorting_input = document.getElementById('card_sorting');
-    card_sorting.push(card_sorting_input.value);
+function addCardSortingToServer(sorting) {
+    card_sorting.push(sorting);
     saveJSONToServer('card_sorting');
 }
 
