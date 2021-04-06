@@ -3,6 +3,7 @@ let users = [];
 let card_sorting = [];
 let BASE_SERVER_URL;
 
+setURL('http://kevin-wissmer.developerakademie.com/backendtesting');
 
 function addUser() {
     username_input = document.getElementById('username');
