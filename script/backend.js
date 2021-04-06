@@ -1,30 +1,70 @@
-let jsonFromServer = {};
+let cards = [];
+let users = [];
+let card_sorting = [];
 let BASE_SERVER_URL;
 
-const backend = {
-    setItem: function(key, item) {
-        jsonFromServer[key] = item;
-        return saveJSONToServer();
-    },
-    getItem: function(key) {
-        if (!jsonFromServer[key]) {
-            return null;
-        }
-        return jsonFromServer[key];
-    },
-    deleteItem: function(key) {
-        delete jsonFromServer[key];
-        return saveJSONToServer();
-    }
-};
-window.onload = async function() {
-    downloadFromServer();
+
+function addUser() {
+    username_input = document.getElementById('username');
+    users.push(username_input.value);
+    saveJSONToServer('users');
 }
 
-async function downloadFromServer() {
-    let result = await loadJSONFromServer();
-    jsonFromServer = JSON.parse(result);
-    console.log('Loaded', result);
+function addCard() {
+    card_input = document.getElementById('card');
+    cards.push(card_input.value);
+    saveJSONToServer('cards');
+}
+
+function addCardSorting() {
+    card_sorting_input = document.getElementById('card_sorting');
+    card_sorting.push(card_sorting_input.value);
+    saveJSONToServer('card_sorting');
+}
+
+function deleteUser(id) {
+    backend.deleteItem(id, users, 'users');
+}
+
+
+const backend = {
+    setItem: function (key, item, database, databaseOnServer) {
+        database[key] = item;
+        return saveJSONToServer(databaseOnServer);
+    },
+    getItem: function (key, database) {
+        if (!database[key]) {
+            return null;
+        }
+        return database[key];
+    },
+    deleteItem: function (key, database, databaseOnServer) {
+        database.splice(key,1);
+        return saveJSONToServer(databaseOnServer);
+    }
+};
+window.onload = async function () {
+    downloadFromServer('cards');
+    downloadFromServer('card_sorting');
+    downloadFromServer('users');
+}
+
+async function downloadFromServer(databaseOnServer) {
+    let result = await loadJSONFromServer(databaseOnServer);
+    switch (databaseOnServer) {
+        case 'cards':
+            cards = JSON.parse(result);
+          break;
+        case 'card_sorting':
+            card_sorting = JSON.parse(result);
+          break;
+        case "users":
+            users = JSON.parse(result);
+          break;
+        default:
+          console.log('wrong file choosed in request!');
+      }
+    console.log('Loaded', databaseOnServer, result);
 }
 
 function setURL(url) {
@@ -37,8 +77,8 @@ function setURL(url) {
  * payload {JSON | Array} - The payload you want to store
  */
 
- async function loadJSONFromServer() {
-    let response = await fetch(BASE_SERVER_URL + '/nocors.php?json=database&noache=' + (new Date().getTime()));
+async function loadJSONFromServer(database) {
+    let response = await fetch(BASE_SERVER_URL + `/nocors.php?json=${database}&noache=` + (new Date().getTime()));
     return await response.text();
 
 }
@@ -47,14 +87,14 @@ function setURL(url) {
 /**
  * Saves a JSON or JSON Array to the Server
  */
- function saveJSONToServer() {
-    return new Promise(function(resolve, reject) {
+function saveJSONToServer(database) {
+    return new Promise(function (resolve, reject) {
         let xhttp = new XMLHttpRequest();
         let proxy = determineProxySettings();
-        let serverURL = proxy + BASE_SERVER_URL + '/save_json.php';
+        let serverURL = proxy + BASE_SERVER_URL + `/save_json.php?json=${database}`;
         xhttp.open('POST', serverURL);
 
-        xhttp.onreadystatechange = function(oEvent) {
+        xhttp.onreadystatechange = function (oEvent) {
             if (xhttp.readyState === 4) {
                 if (xhttp.status >= 200 && xhttp.status <= 399) {
                     resolve(xhttp.responseText);
@@ -65,7 +105,21 @@ function setURL(url) {
         };
 
         xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhttp.send(JSON.stringify(jsonFromServer));
+
+        switch (database) {
+            case 'cards':
+                xhttp.send(JSON.stringify(cards));
+              break;
+            case 'card_sorting':
+                xhttp.send(JSON.stringify(card_sorting));
+              break;
+            case "users":
+                xhttp.send(JSON.stringify(users));
+              break;
+            default:
+              console.log('wrong file choosed in request!');
+          }
+        
 
     });
 }
