@@ -1,0 +1,249 @@
+body {
+    background-color: #d2c2b0;
+    margin: 0;
+}
+
+.body-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d2c2b0;
+}
+
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color:#1f1f24;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 160px;
+    padding-top: 32px;
+}
+
+.menu {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-direction: column;
+   height: 75%;
+}
+
+.sections {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+    width: 147px;
+}
+
+.logo img {
+    object-fit: contain;
+}
+
+.sections a {
+    text-decoration: none;
+    color: white;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    font-size: 22px;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.sections a:hover {
+    -webkit-transform: scale(1.4);
+    -ms-transform: scale(1.2);
+    transform: scale(1.4);
+}
+
+.section h1{
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    justify-content: center;
+    margin-top: 48px;
+}
+
+.section p{
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 30px;
+    margin-top: 70px;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 55px;
+}
+
+.profile img {
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+}
+
+.board {
+    width: calc(100% - 160px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.board div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.board span {
+    font-size: 20px;
+    margin-bottom: 20px;
+    
+}
+
+.todo {
+    background-color:  #ffffff;
+    width: 240px;
+    height: 720px;
+    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    border-radius: 12px;
+}
+
+.title {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.title h2 {
+    margin-top: 50px;
+    font-size: 35px;
+}
+
+.title span {
+    margin-top: 30px;
+    font-size: 25px;
+    color: black;
+}
+
+.contact-form {
+    background-color: #1f1f24;
+    height: 420px;
+    width: 720px;
+    border-radius: 16px;
+    color:white;
+}
+
+.input-cont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+.input-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.input {
+    height: 47px;
+    width: 318px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.select {
+    height: 48px;
+    width: 320px;
+    border-radius: 5px;
+}
+
+.textarea {
+    height: 120px;
+    width: 360px;
+    border-radius: 5px;
+}
+
+.btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.margin {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.margin-top {
+    margin-top: 16px;
+}
+
+.mdl-mini-footer{
+    position: fixed;
+    color: white;
+    background-color:#1f1f24;
+    padding: 10px;
+    bottom: 0;
+    left: 160px;
+    right: 0;    
+}
+.mdl-button{
+    background: white;
+    color: black;
+}
+.social-media-icon{
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 35px;
+    height: 35px;
+}
+
+.privacy{
+    max-width: 70%;
+    margin-top: 30px;
+    margin-bottom: 70px;
+}
+
+.index-link{
+    color:blue;
+}
+
+.impressum {  
+    max-width: 70%;
+    margin-top: 30px;
+    margin-bottom: 70px;   
+}
+
+.maps{
+    position: absolute;
+    margin-top: 7%;
+    margin-right: 23%;
+    max-width: 40%;
+    float: right;
+    right: 0;
+    top: 0;
+    display: block;
+}
