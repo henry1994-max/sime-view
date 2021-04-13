@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .drag-area {
+        height: 200px;
+        background-color: rgba(0, 0, 0, 0.1);
+        border: 1px dashed black;
+        margin-bottom: 50px;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .todo {
+        border: 1px solid gray;
+        background-color: white;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+    }
+</style>
+
+
+<body onload="updateHTML()">
+    <div class="drag-area" id="open" ondrop="moveTo('open')" ondragover="allowDrop(event)"></div>
+    <div class="drag-area" id="closed" ondrop="moveTo('closed')" ondragover="allowDrop(event)"></div>
+
+    <script>
+        let todos = [{
+            'id': 0,
+            'title': 'Putzen',
+            'category': 'open'
+        }, {
+            'id': 1,
+            'title': 'Kochen',
+            'category': 'open'
+        }, {
+            'id': 2,
+            'title': 'Einkaufen',
+            'category': 'closed'
+        }, {
+            'id': 3,
+            'title': 'Hausaufgabe',
+            'category': 'closed'
+        }];
+
+        let currentDraggedElement;
+
+        function updateHTML() {
+            let open = todos.filter(t => t['category'] == 'open');
+            document.getElementById('open').innerHTML = '';
+
+            for (let index = 0; index < open.length; index++) {
+                const element = open[index];
+                document.getElementById('open').innerHTML += generateToDoHTML(element);
+            }
+
+
+            let closed = todos.filter(t => t['category'] == 'closed');
+            document.getElementById('closed').innerHTML = '';
+
+            for (let index = 0; index < closed.length; index++) {
+                const element = closed[index];
+                document.getElementById('closed').innerHTML += generateToDoHTML(element);
+            }
+        }
+
+        function startDragging(id) {
+            currentDraggedElement = id;
+        }
+
+        function generateToDoHTML(element) {
+            return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div`;
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function moveTo(category) {
+            todos[currentDraggedElement]['category'] = category;
+            updateHTML();
+        }
+    </script>
+</body>
+
+</html>
