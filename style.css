@@ -1,13 +1,33 @@
 body {
-    background-color: #d2c2b0;
     margin: 0;
+}
+
+.dialog-bg {
+    background-color: rgba(50, 50, 50, 0.6);
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 160px;
+    height: 100%;
+    width: 100%;
+    z-index: 11;
+    margin-left: 0 !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog {
+    z-index: 12;
+}
+
+.d-none {
+    display: none !important;
 }
 
 .body-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #d2c2b0;
 }
 
 .nav-bar {
@@ -15,7 +35,7 @@ body {
     top: 0;
     left: 0;
     bottom: 0;
-    background-color:#1f1f24;
+    background-color: #1f1f24;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -24,11 +44,11 @@ body {
 }
 
 .menu {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   flex-direction: column;
-   height: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: 75%;
 }
 
 .sections {
@@ -66,14 +86,14 @@ body {
     transform: scale(1.4);
 }
 
-.section h1{
+.section h1 {
     display: flex;
     font-family: 'Roboto', sans-serif;
     justify-content: center;
     margin-top: 48px;
 }
 
-.section p{
+.section p {
     display: block;
     text-align: center;
     font-size: 20px;
@@ -96,7 +116,7 @@ body {
 }
 
 .board {
-    width: calc(100% - 160px);
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,16 +146,27 @@ body {
 }
 
 .board span {
-    font-size: 20px;
-    margin-bottom: 20px;  
+    width: 220px;
+    font-size: 27px;
+    margin-bottom: 20px;
+    box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    border-radius: 12px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: white;
 }
 
 .todo {
-    background-color:  #ffffff;
+    background-color:#ffffff;
     width: 240px;
     height: 720px;
     box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
     border-radius: 12px;
+    display: flex;
+    justify-content: flex-start !important;
+    flex-direction: column !important;
 }
 
 .title {
@@ -161,7 +192,7 @@ body {
     height: 420px;
     width: 720px;
     border-radius: 16px;
-    color:white;
+    color: white;
 }
 
 .input-cont {
@@ -212,44 +243,45 @@ body {
     margin-top: 16px;
 }
 
-.mdl-mini-footer{
+.mdl-mini-footer {
     position: fixed;
     color: white;
-    background-color:#1f1f24;
+    background-color: #1f1f24;
     padding: 10px;
     bottom: 0;
     left: 160px;
-    right: 0;    
+    right: 0;
 }
 
-.mdl-button{
+.mdl-button {
     background: white;
     color: black;
 }
-.social-media-icon{
+
+.social-media-icon {
     margin-left: 5px;
     margin-right: 5px;
     width: 35px;
     height: 35px;
 }
 
-.privacy{
+.privacy {
     max-width: 70%;
     margin-top: 30px;
     margin-bottom: 70px;
 }
 
-.index-link{
-    color:blue;
+.index-link {
+    color: blue;
 }
 
-.impressum {  
+.impressum {
     max-width: 70%;
     margin-top: 30px;
-    margin-bottom: 70px;   
+    margin-bottom: 70px;
 }
 
-.maps{
+.maps {
     position: absolute;
     margin-top: 7%;
     margin-right: 23%;
@@ -299,12 +331,14 @@ body {
     margin: 96px;
     padding: 16px;
     font-size: 16px;
+    margin-left: 80vh;
+    
 }
 
 .user-inputs {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
 }
 
 .user-image {
@@ -312,8 +346,8 @@ body {
 }
 
 .user-name {
-   padding: 2px;
-   padding-right: 16px;
+    padding: 2px;
+    padding-right: 16px;
 }
 
 .user-email {
@@ -328,11 +362,19 @@ body {
 }
 
 .add-user table {
-    width: 100%;
+    width: 65vh;
     height: 160px;
     text-align: center;
+    margin-left: 69vh;
 }
 
 .add-user table th {
     color: lightslategrey;
 }
+
+#background {
+    display: flex;
+    background-size: cover;
+    background-image: url("img/background-img.jpg");
+    height: 100vh;
+  }

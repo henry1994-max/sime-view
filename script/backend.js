@@ -4,12 +4,12 @@ let card_sorting = [];
 let BASE_SERVER_URL = 'http://gruppe-66.developerakademie.com/script';
 
 
-function addUserToServer(user) {
+async function addUserToServer(user) {
     users.push(user);
     saveJSONToServer('users');
 }
 
-function addCardToServer(card) {
+async function addCardToServer(card) {
     cards.push(card);
     saveJSONToServer('cards');
 }

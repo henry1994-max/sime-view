@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <style>
+        .inputfilebox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 260px;
+            width: 220px;
+            z-index: 3;
+            border: solid 3px black;
+            border-radius: 12px;
+            background-color: rgba(0, 0, 0, 0);
+            flex-direction: column;
+        }
+
+        .inputfilebox-bg {
+            border: solid 3px black;
+            border-radius: 12px;
+            height: 260px;
+            width: 220px;
+            display: flex;
+            position: absolute;
+            z-index: 2;
+            background-color: #d2c2b0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .inputfile {
+            margin-top: 5% ;
+            height: 80%;
+            width: 80%;
+            border: dashed 2px #1f1f24;
+            border-radius: 12px;
+            z-index: 4;
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .inputfilehover {
+            margin-top: 5% ;
+            height: 90%;
+            width: 90%;
+            background-color: rgba(0, 0, 0, 0);
+            border: dashed 2px #1f1f24;
+            border-radius: 12px;
+            z-index: 4;
+        }
+
+        .inputfile-manually {
+            padding-top: 3%;
+            padding-bottom: 3%;
+            padding-left: 20%;
+            height: 20px;
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0);
+            z-index: 4;
+            font-size: xx-small;
+        }
+        .upload-text {
+            padding-top: 5px;
+            color: #1f1f24;
+            font-style: bold;
+            font-size: small;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+
+    <div class="inputfilebox">
+        <div class="inputfilebox-bg">
+            
+            <img src=".\Projekt_join\img\upload-2-64.png" alt="">
+            <div class="upload-text">Upload Your Image here</div>
+        </div>
+
+        <input id="img_input" ondragleave="toinputfilehoverend()" ondragenter="toinputfilehover()"
+            ondrop="toinputfilehoverend()" class="inputfile" accept=".jpg, .jpeg, .png" />
+        <div style="z-index: 4;" class="upload-text">or choose the file manually</div>
+        <input id="img_input_manually" onchange="previewFile()" class="inputfile-manually" type='file' accept=".jpg, .jpeg, .png" />
+    </div>
+    
+
+
+
+    <canvas></canvas>
+
+
+</body>
+
+<script>
+
+    function toinputfilehover() {
+        document.getElementById('img_input').classList = 'inputfilehover';
+    }
+    function toinputfilehoverend() {
+        document.getElementById('img_input').classList = 'inputfile';
+    }
+
+
+    document.querySelector('input').addEventListener('drop', e => {
+        e.preventDefault();
+        const reader = new FileReader();
+        reader.readAsDataURL(e.dataTransfer.files[0]);
+        reader.onload = () => {
+            loadToCanvas(reader.result);
+        }
+    });
+
+
+
+
+    function previewFile() {
+        const file = document.querySelector('input[type=file]').files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            // convert image file to base64 string
+            loadToCanvas(reader.result);
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+
+
+    function loadToCanvas(result) {
+        const image = new Image();
+        image.src = result;
+        image.onload = () => {
+            const canvas = document.querySelector('canvas');
+            canvas.width = image.width;
+            canvas.height = image.height;
+            const context = canvas.getContext('2d');
+            context.drawImage(image, 0, 0);
+
+            let dataURL = canvas.toDataURL();
+
+        }
+    }
+
+
+</script>
+
+</html>

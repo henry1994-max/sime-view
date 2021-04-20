@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  <div id="background">
     <div class="body-container">
         <div class="nav-bar">
             <div class="logo">
@@ -25,6 +26,7 @@
                     <a href="./add-user.html">Add User</a>
                     <a href="./help.html">Help</a>
                 </div>
+             </div>
                 <div class="profile">
                     <img src="img/sv_logo.png">
                 </div>
@@ -33,42 +35,45 @@
         <div class="add-user">
             <div class="user-container">
                 <div class="user-inputs">
-                    <div id="user-image" class="user-image"><img src="img/profil-w.jpg"></div>
+                    <div id="user-image" class="user-image"><img src="img/user.png"></div>
                     <div>
                         <div class="user-name"><input id="user-name" placeholder="Name"></div>
                         <div class="user-email"><input id="user-email" placeholder="E-Mail-Adresse"></div>
                     </div>
                 </div>
-                <button id="create_task" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored margin">
+                <button id="create_task" class="mdl-button mdl-js-button mdl-button--raised margin">
                     Abschicken
                 </button>
             </div>
-            <table>
-                <tr>
-                    <th>Name</th>
+
+            <table class="mdl-data-table mdl-js-data-table mdl-table--selectable mdl-shadow--2dp">
+                <thead>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Name</th>
                     <th>Category</th>
-                    <th>email</th>
-                </tr>
-                <tr>
-                    <td>Kevin</td>
+                    <th>E-mail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Kevin</td>
                     <td>Marketing</td>
-                    <td>email</td>
-                </tr>
-                <tr>
-                    <td>Henry</td>
+                    <td>kevin.wissmer@simeview.com</td>
+                  </tr>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Henry</td>
                     <td>Sale</td>
-                    <td>email</td>
-                </tr>
-                <tr>
-                    <td>Zubair</td>
+                    <td>henry.jaersch@simeview.com</td>
+                  </tr>
+                  <tr>
+                    <td class="mdl-data-table__cell--non-numeric">Zubair</td>
                     <td>Product</td>
-                    <td>email</td>
-                </tr>
-            </table>
+                    <td>zubair.gezuev@simeview.com</td>
+                  </tr>
+                </tbody>
+              </table>
         </div>
     </div>
-
-<<<<<<< HEAD
     <footer class="mdl-mini-footer">
         <div class="mdl-mini-footer__left-section">
           <div class="mdl-logo">SimeView</div>

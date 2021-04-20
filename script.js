@@ -1,32 +1,16 @@
-let todos = [{
-    'id': 0,
-    'title': 'PUTZEN',
-    'category': 'Marketing',
-    'urgency': 'High',
-    'date': '01.01.2021',
-    'status': 'to_do'
-}, {
-    'id': 1,
-    'title': 'KOCHEN',
-    'category': 'Product',
-    'urgency': 'High',
-    'date': '15.02.2021',
-    'status': 'in_progress'
-}, {
-    'id': 2,
-    'title': 'EINKAUFEN',
-    'category': 'Sale',
-    'urgency': 'High',
-    'date': '20.02.2021',
-    'status': 'testing'
-}, {
-    'id': 3,
-    'title': 'PUTZEN',
-    'category': 'Marketing',
-    'urgency': 'High',
-    'date': '10.03.2021',
-    'status': 'done'
-}];
+let todos = [];
+
+downloadFromServer('cards').then(
+    function (value) {
+        todos = cards;
+        updateHTML();
+    },
+    function (error) { 
+        console.log('problem!!') 
+    }
+);
+
+
 
 let currentDraggedElement;
 
@@ -75,7 +59,7 @@ function generateToDoHTML(element) {
     return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo-card">
         <div class="card-title">
             <div id="todo-title">${element['title']}</div>
-            <div id="delete"><img src="./img/trash.png"></div>
+            <div onclick="deleteSingleCard(${element['id']})" id="delete"><img src="./img/trash.png"></div>
         </div>
         <div id="element-category">${element['category']}</div>
         <div id="element-urgency">${element['urgency']}</div>
@@ -88,6 +72,8 @@ function allowDrop(ev) {
 }
 
 function moveTo(status) {
-    todos[currentDraggedElement]['status'] = status;
+    let index = cards.findIndex(x => x.id == currentDraggedElement);
+    todos[index]['status'] = status;
     updateHTML();
+    saveJSONToServer('cards');
 }
