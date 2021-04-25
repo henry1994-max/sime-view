@@ -1,22 +1,23 @@
 let cards = [];
 let users = [];
-let card_sorting = [];
+let backlog = [];
 let BASE_SERVER_URL = 'http://gruppe-66.developerakademie.com/script';
+
 
 
 async function addUserToServer(user) {
     users.push(user);
-    saveJSONToServer('users');
+    await saveJSONToServer('users');
 }
 
 async function addCardToServer(card) {
     cards.push(card);
-    saveJSONToServer('cards');
+    await saveJSONToServer('cards');
 }
 
-function addCardSortingToServer(sorting) {
-    card_sorting.push(sorting);
-    saveJSONToServer('card_sorting');
+async function addBacklogToServer(log) {
+    backlog.push(log);
+    await saveJSONToServer('backlog');
 }
 
 function deleteUser(id) {
@@ -40,10 +41,19 @@ const backend = {
         return saveJSONToServer(databaseOnServer);
     }
 };
+
 window.onload = async function () {
     downloadFromServer('cards');
-    downloadFromServer('card_sorting');
+    downloadFromServer('backlog');
     downloadFromServer('users');
+    console.log('all loaded');
+}
+
+async function loadAll() {
+    downloadFromServer('cards');
+    downloadFromServer('backlog');
+    downloadFromServer('users');
+    console.log('all loaded');
 }
 
 async function downloadFromServer(databaseOnServer) {
@@ -52,8 +62,8 @@ async function downloadFromServer(databaseOnServer) {
         case 'cards':
             cards = JSON.parse(result);
             break;
-        case 'card_sorting':
-            card_sorting = JSON.parse(result);
+        case 'backlog':
+            backlog = JSON.parse(result);
             break;
         case "users":
             users = JSON.parse(result);
@@ -61,7 +71,7 @@ async function downloadFromServer(databaseOnServer) {
         default:
             console.log('wrong file choosed in request!');
     }
-    console.log('Loaded', databaseOnServer, result);
+    /*console.log('Loaded', databaseOnServer, result);*/
 }
 
 function setURL(url) {
@@ -107,8 +117,8 @@ function saveJSONToServer(database) {
             case 'cards':
                 xhttp.send(JSON.stringify(cards));
                 break;
-            case 'card_sorting':
-                xhttp.send(JSON.stringify(card_sorting));
+            case 'backlog':
+                xhttp.send(JSON.stringify(backlog));
                 break;
             case "users":
                 xhttp.send(JSON.stringify(users));
@@ -130,4 +140,8 @@ function determineProxySettings() {
     } else {
         return 'https://cors-anywhere.herokuapp.com/';
     }
+}
+
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

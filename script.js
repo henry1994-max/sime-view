@@ -1,20 +1,27 @@
 let todos = [];
+let currentDraggedElement;
 
 downloadFromServer('cards').then(
-    function (value) {
-        todos = cards;
-        updateHTML();
+     function (value) {
+        downloadFromServer('users').then(
+            async function (value) {
+                todos = cards;
+                await updateHTML();
+            },
+            function (error) {
+                console.log('problem!!')
+            }
+        );
     },
-    function (error) { 
-        console.log('problem!!') 
+    function (error) {
+        console.log('problem!!')
     }
 );
 
-
-
-let currentDraggedElement;
-
-function updateHTML() {
+async function updateHTML() {
+    await downloadFromServer('cards');
+    await downloadFromServer('users');
+    todos=cards;
     let to_do = todos.filter(t => t['status'] == 'to_do');
     document.getElementById('to_do').innerHTML = '';
 
@@ -55,25 +62,31 @@ function startDragging(id) {
     currentDraggedElement = id;
 }
 
-function generateToDoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo-card">
-        <div class="card-title">
-            <div id="todo-title">${element['title']}</div>
-            <div onclick="deleteSingleCard(${element['id']})" id="delete"><img src="./img/trash.png"></div>
-        </div>
-        <div id="element-category">${element['category']}</div>
-        <div id="element-urgency">${element['urgency']}</div>
-        <div id="element-date">${element['date']}</div>
-        </div>`;
-}
-
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
-function moveTo(status) {
+async function moveTo(status) {
     let index = cards.findIndex(x => x.id == currentDraggedElement);
+    log_template.start = cards[index].status;
+    cards[index]['status'] = status;
     todos[index]['status'] = status;
-    updateHTML();
-    saveJSONToServer('cards');
+    log_template.end = cards[index].status;
+    log_template.sort = 'move_card';
+    log_template.cardname = cards[index].title;
+    await saveJSONToServer('cards'); 
+    await addBacklog(log_template);
+    await updateHTML();
+}
+
+function showDescription(index) {
+    document.getElementById(`element-description-${index}`).classList.remove('d-none');
+    document.getElementById(`open-img-${index}`).classList.add('d-none');
+        document.getElementById(`close-img-${index}`).classList.remove('d-none');
+}
+
+function closeDescription(index) {
+        document.getElementById(`element-description-${index}`).classList.add('d-none');
+        document.getElementById(`open-img-${index}`).classList.remove('d-none');
+        document.getElementById(`close-img-${index}`).classList.add('d-none');
 }

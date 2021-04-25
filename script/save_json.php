@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
 $json = file_get_contents('php://input');
-if (strlen($json) > 10000) {
+if (strlen($json) > 5000000) {
     die('Payload is too long (Max. 10000 characters).');
 }
 $file = $_GET['json'] . '.json';
